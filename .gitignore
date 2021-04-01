@@ -1,0 +1,10 @@
+.idea
+tf_binary
+.terraform
+*.tfstate
+*.tfstate.backup
+*.auto.tfvars.json
+plugins
+terraform_state
+terraform_state.backup
+crash.log

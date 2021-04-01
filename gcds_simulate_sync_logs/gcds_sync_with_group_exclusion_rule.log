@@ -1,0 +1,373 @@
+[2021-04-01 13:18:58,957+0000] [AWT-EventQueue-0] [INFO] [general.syncdialog.SyncDialog] Version 4.7.10
+[2021-04-01 13:18:58,958+0000] [AWT-EventQueue-0] [INFO] [general.syncdialog.SyncDialog] In-memory configuration check value: -93050879
+[2021-04-01 13:18:58,958+0000] [AWT-EventQueue-0] [INFO] [general.syncdialog.SyncDialog] In-memory configuration: <?xml version="1.0" encoding="UTF-8"?>
+<config version="4.7.10" id="93a0f1ca9f574ae7afa465d7c3d1adf9" rev="1b03e22718b24d8390a99873dbc7eba4" marker="314">
+  <features>
+    <optional>ALIAS_SYNCHRONIZATION</optional>
+    <optional>BASE64_PASSWORD</optional>
+    <optional>CONVERT_FILTERS</optional>
+    <optional>DYNAMIC_GROUPS</optional>
+    <optional>FAMILY_NAME</optional>
+    <optional>GIVEN_NAME</optional>
+    <optional>GOOGLE_QUOTA</optional>
+    <optional>GROUPS</optional>
+    <optional>GROUP_DESCRIPTION</optional>
+    <optional>GROUP_MANAGER_POLICY_KEEP</optional>
+    <optional>GROUP_OWNER</optional>
+    <optional>INDEPENDENT_GROUP_SYNC</optional>
+    <optional>MD5_PASSWORD</optional>
+    <optional>MULTIDOMAIN</optional>
+    <optional>NON_ADDRESS_PRIMARY_KEY</optional>
+    <optional>SHA1_PASSWORD</optional>
+    <optional>SKIP_CALENDAR_RESOURCES</optional>
+    <optional>SKIP_CUSTOM_SCHEMAS</optional>
+    <optional>SKIP_EXISTING_PASSWORDS</optional>
+    <optional>SKIP_IDENTITY_MAPPED_GROUPS</optional>
+    <optional>SKIP_LICENSES</optional>
+    <optional>SKIP_ORGUNITS</optional>
+    <optional>SKIP_SHARED_CONTACTS</optional>
+    <optional>SKIP_SUSPENDING_ADMINS</optional>
+    <optional>SKIP_USER_PROFILES</optional>
+    <optional>SUSPEND_USERS</optional>
+  </features>
+  <logging>
+    <defaultLogLevel>INFO</defaultLogLevel>
+    <format>[%d{ISO8601}%d{Z}] [%t] [%p] [%C{3}] %m%n</format>
+    <logFile>C:\Users\terraform\gcds_sync.#{timestamp}.log</logFile>
+    <maximumLogBytes>524288000</maximumLogBytes>
+    <logFileCount>10</logFileCount>
+  </logging>
+  <eventLimits>
+    <deleteLimitPCT_CALENDAR_RESOURCE>5</deleteLimitPCT_CALENDAR_RESOURCE>
+    <deleteLimitPCT_GROUP>5</deleteLimitPCT_GROUP>
+    <modifyLimitPCT_GROUP>20</modifyLimitPCT_GROUP>
+    <deleteLimitPCT_IDENTITY_MAPPED_GROUP>5</deleteLimitPCT_IDENTITY_MAPPED_GROUP>
+    <deleteLimitPCT_ORG_UNIT>5</deleteLimitPCT_ORG_UNIT>
+    <deleteLimitPCT_SHARED_CONTACT>5</deleteLimitPCT_SHARED_CONTACT>
+    <deleteLimitPCT_USER>5</deleteLimitPCT_USER>
+    <suspendLimitPCT_USER>5</suspendLimitPCT_USER>
+    <modifyMinimumMemberGroupLimit>100</modifyMinimumMemberGroupLimit>
+  </eventLimits>
+  <!--  cache lifetime specified in seconds, default value is 8 days -->
+  <maxCacheLifetime>691200</maxCacheLifetime>
+  <!-- specifies whether to calculate cache lifetime dynamically or not. If set to false, then
+    maxCacheLifetime value is used as cache lifetime. If set to true, then cache lifetime is
+    calculated dynamically -->
+  <useDynamicMaxCacheLifetime>true</useDynamicMaxCacheLifetime>
+  <!-- specifies the filename for storing calendar resource mapping. Its default value is
+    calResMapping.csv -->
+  <calendarResourceMappingFilename>calResMapping.csv</calendarResourceMappingFilename>
+  <!-- Plugin definitions and the individual plugin configurations. -->
+  <plugins>
+    <plugin class="com.google.usersyncapp.plugin.google.GooglePlugin">
+      <config version="0.2">
+        <domain>imok2.page</domain>
+        <loginMethod>OAUTH2</loginMethod>
+        <oAuth2RefreshToken>exEnPc6Zq+LWM3OcG2kM6+IeLY7rlJwc2xY72YnLJe6vLVecZuk1hkA8ku0FV6WIBO7l5rMD9BbB0hj2ldTuhEkYvEjKJ+TWENDCU0ybEhYbyCha2+1y6KbGggrMnR08G+EsWQIXEtGjjxf9+daekQ==</oAuth2RefreshToken>
+        <oAuth2Scopes>
+          <scope>https://www.google.com/m8/feeds/</scope>
+          <scope>https://www.googleapis.com/auth/admin.directory.group</scope>
+          <scope>https://www.googleapis.com/auth/admin.directory.orgunit</scope>
+          <scope>https://www.googleapis.com/auth/admin.directory.resource.calendar</scope>
+          <scope>https://www.googleapis.com/auth/admin.directory.user</scope>
+          <scope>https://www.googleapis.com/auth/admin.directory.userschema</scope>
+          <scope>https://www.googleapis.com/auth/apps.groups.settings</scope>
+          <scope>https://www.googleapis.com/auth/apps.licensing</scope>
+          <scope>https://www.googleapis.com/auth/plus.me</scope>
+        </oAuth2Scopes>
+        <googleUsersSyncThreads>30</googleUsersSyncThreads>
+        <googleProfilesSyncThreads>30</googleProfilesSyncThreads>
+        <googleContactsSyncThreads>15</googleContactsSyncThreads>
+        <googleApiReadTimeout>20</googleApiReadTimeout>
+        <nonAddressPrimaryKeyMapFile>C:\Users\terraform\nonAddressPrimaryKeyFile.tsv</nonAddressPrimaryKeyMapFile>
+        <passwordTimestampFile>C:\Users\terraform\passwordTimestampCache.tsv</passwordTimestampFile>
+        <googleCredMachineName>gce-windows-gcds</googleCredMachineName>
+        <maxResults>500</maxResults>
+        <exclude>
+          <match>GROUP_NAME</match>
+          <type>REGEX</type>
+          <filter>gcp.custom-group.*@imok2.page</filter>
+        </exclude>
+        <exclude>
+          <match>USER_NAME</match>
+          <type>EXACT</type>
+          <filter>wilsonfv@imok2.page</filter>
+        </exclude>
+      </config>
+    </plugin>
+    <plugin class="com.google.usersyncapp.plugin.ldap.LDAPPlugin">
+      <config version="0.2">
+        <serverType>OPENLDAP</serverType>
+        <connectMethod>STANDARD</connectMethod>
+        <hostname>ldap.forumsys.com</hostname>
+        <port>389</port>
+        <basedn>dc=example,dc=com</basedn>
+        <authType>ANONYMOUS</authType>
+        <nonAddressPrimaryKeyAttrName>entryUUID</nonAddressPrimaryKeyAttrName>
+        <emailAttrName>mail</emailAttrName>
+        <ldapCredMachineName>gce-windows-gcds</ldapCredMachineName>
+        <dominoWhiteSpaceReplaceChar>.</dominoWhiteSpaceReplaceChar>
+        <generatedPasswordLength>8</generatedPasswordLength>
+        <resultsPageSize>1000</resultsPageSize>
+        <orgunits />
+        <users>
+          <search>
+            <priority>1</priority>
+            <suspended>false</suspended>
+            <scope>SUBTREE</scope>
+            <orgMappingAttribute />
+            <filter>(objectClass=*)</filter>
+          </search>
+        </users>
+        <groups>
+          <search>
+            <priority>1</priority>
+            <scope>ONELEVEL</scope>
+            <filter>(objectClass=groupOfUniqueNames)</filter>
+            <memberAttrName>uid</memberAttrName>
+            <groupIdentifierAttr>ou</groupIdentifierAttr>
+            <userEmailAttribute>mail</userEmailAttribute>
+          </search>
+        </groups>
+        <sharedContacts>
+          <search>
+            <priority>0</priority>
+          </search>
+        </sharedContacts>
+        <userProfiles>
+          <search>
+            <priority>1</priority>
+          </search>
+        </userProfiles>
+        <licenses>
+          <userMailAttributeName />
+          <products>
+            <product id="Google-Apps">
+              <sku id="1010020027" name="Google Workspace Business Starter" />
+              <sku id="1010020028" name="Google Workspace Business Standard" />
+              <sku id="1010020025" name="Google Workspace Business Plus" />
+              <sku id="1010060003" name="Google Workspace Enterprise Essentials" />
+              <sku id="1010020026" name="Google Workspace Enterprise Standard" />
+              <sku id="1010020020" name="Google Workspace Enterprise Plus (formerly G Suite Enterprise)" />
+              <sku id="1010060001" name="Google Workspace Essentials (formerly G Suite Essentials)" />
+              <sku id="Google-Apps-Unlimited" name="G Suite Business" />
+              <sku id="Google-Apps-For-Business" name="G Suite Basic" />
+              <sku id="Google-Apps-Lite" name="G Suite Lite" />
+              <sku id="Google-Apps-For-Postini" name="Google Apps Message Security" />
+            </product>
+            <product id="101031">
+              <sku id="1010310002" name="G Suite Enterprise for Education" />
+              <sku id="1010310003" name="G Suite Enterprise for Education (Student)" />
+            </product>
+            <product id="Google-Drive-storage">
+              <sku id="Google-Drive-storage-20GB" name="Google Drive storage 20 GB" />
+              <sku id="Google-Drive-storage-50GB" name="Google Drive storage 50 GB" />
+              <sku id="Google-Drive-storage-200GB" name="Google Drive storage 200 GB" />
+              <sku id="Google-Drive-storage-400GB" name="Google Drive storage 400 GB" />
+              <sku id="Google-Drive-storage-1TB" name="Google Drive storage 1 TB" />
+              <sku id="Google-Drive-storage-2TB" name="Google Drive storage 2 TB" />
+              <sku id="Google-Drive-storage-4TB" name="Google Drive storage 4 TB" />
+              <sku id="Google-Drive-storage-8TB" name="Google Drive storage 8 TB" />
+              <sku id="Google-Drive-storage-16TB" name="Google Drive storage 16 TB" />
+            </product>
+            <product id="Google-Vault">
+              <sku id="Google-Vault" name="Google Vault" />
+              <sku id="Google-Vault-Former-Employee" name="Google Vault - Former Employee" />
+            </product>
+            <product id="101001">
+              <sku id="1010010001" name="Cloud Identity" />
+            </product>
+            <product id="101005">
+              <sku id="1010050001" name="Cloud Identity Premium" />
+            </product>
+            <product id="101033">
+              <sku id="1010330003" name="Google Voice Starter" />
+              <sku id="1010330004" name="Google Voice Standard" />
+              <sku id="1010330002" name="Google Voice Premier" />
+            </product>
+          </products>
+          <rules />
+        </licenses>
+        <schemas>
+          <schemaDefinitions />
+          <schemaHistory />
+        </schemas>
+      </config>
+    </plugin>
+  </plugins>
+</config>
+
+
+[2021-04-01 13:18:58,958+0000] [AWT-EventQueue-0] [INFO] [general.syncdialog.SyncDialog] Starting simulation
+[2021-04-01 13:18:58,958+0000] [SwingWorker-pool-2-thread-9] [INFO] [usersyncapp.sync.PluginGroup] 1 plugin(s) do not support the OPTIONAL feature "SKIP_ORGUNITS"
+[2021-04-01 13:19:00,312+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Executing LDAP query:
+base dn: "dc=example,dc=com"
+filter: "(objectClass=*)"
+scope: "SUBTREE"
+context name: "default"
+attributes: "entryuuid, mail"
+[2021-04-01 13:19:00,484+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Processed 23 results from LDAP search
+[2021-04-01 13:19:00,484+0000] [pool-8-thread-19] [INFO] [plugin.ldap.AbstractLdapHandler] fetchGroupsSynchronously: true, reason: INDEPENDENT_GROUP_SYNC enabled
+[2021-04-01 13:19:00,484+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Executing LDAP query:
+base dn: "dc=example,dc=com"
+filter: "(objectClass=groupOfUniqueNames)"
+scope: "ONELEVEL"
+context name: "default"
+attributes: "ou"
+[2021-04-01 13:19:00,578+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Processed 3 results from LDAP search
+[2021-04-01 13:19:00,578+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Executing LDAP query:
+base dn: "ou=mathematicians,dc=example,dc=com"
+filter: "objectClass=*"
+scope: "OBJECT"
+context name: "default"
+attributes: "uid"
+[2021-04-01 13:19:00,656+0000] [pool-8-thread-20] [INFO] [plugin.google.LocalAndRemoteKeyStore] 0 Unique ID (Non-Address Primary Key) mapping(s) retrieved.
+[2021-04-01 13:19:00,656+0000] [pool-8-thread-20] [INFO] [plugin.google.GoogleFulfill] Skipping retrieval and processing of organizations.
+[2021-04-01 13:19:00,656+0000] [pool-8-thread-20] [INFO] [plugin.google.GoogleFulfill] Skipping retrieval and processing of user profiles.
+[2021-04-01 13:19:00,656+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Processed 1 results from LDAP search
+[2021-04-01 13:19:00,656+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Executing LDAP query:
+base dn: "ou=scientists,dc=example,dc=com"
+filter: "objectClass=*"
+scope: "OBJECT"
+context name: "default"
+attributes: "uid"
+[2021-04-01 13:19:00,750+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Processed 1 results from LDAP search
+[2021-04-01 13:19:00,750+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Executing LDAP query:
+base dn: "ou=chemists,dc=example,dc=com"
+filter: "objectClass=*"
+scope: "OBJECT"
+context name: "default"
+attributes: "uid"
+[2021-04-01 13:19:00,828+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LdapQueryExecutorImpl] Processed 1 results from LDAP search
+[2021-04-01 13:19:00,828+0000] [pool-8-thread-19] [INFO] [plugin.ldap.LDAPPlugin] Finished downloading local LDAP data.
+[2021-04-01 13:19:01,531+0000] [pool-8-thread-20] [INFO] [plugin.google.GoogleFulfill] Skipping retrieval and processing of calendar resources.
+[2021-04-01 13:19:01,531+0000] [pool-8-thread-20] [INFO] [plugin.google.GoogleFulfill] Skipping retrieval and processing of licenses data.
+[2021-04-01 13:19:01,531+0000] [pool-8-thread-20] [INFO] [plugin.google.GoogleFulfill] Skipping retrieval and processing of custom schemas.
+[2021-04-01 13:19:01,531+0000] [pool-8-thread-20] [INFO] [plugin.google.GoogleFulfill] Skipping retrieval and processing of identity mapped groups.
+[2021-04-01 13:19:01,531+0000] [pool-8-thread-20] [INFO] [plugin.google.GooglePlugin] Finished downloading remote Google data.
+[2021-04-01 13:19:01,531+0000] [SwingWorker-pool-2-thread-9] [INFO] [google.usersyncapp.Report]
+8 warnings
+	Skipping non-user result (no email address at the specified node). Node DN is "dc=example,dc=com"
+	Skipping non-user result (no email address at the specified node). Node DN is "cn=admin,dc=example,dc=com"
+	Skipping non-user result (no email address at the specified node). Node DN is "ou=mathematicians,dc=example,dc=com"
+	Skipping non-user result (no email address at the specified node). Node DN is "ou=scientists,dc=example,dc=com"
+	Skipping non-user result (no email address at the specified node). Node DN is "cn=read-only-admin,dc=example,dc=com"
+	Skipping non-user result (no email address at the specified node). Node DN is "ou=italians,ou=scientists,dc=example,dc=com"
+	Skipping non-user result (no email address at the specified node). Node DN is "uid=test,dc=example,dc=com"
+	Skipping non-user result (no email address at the specified node). Node DN is "ou=chemists,dc=example,dc=com"
+
+[2021-04-01 13:19:01,531+0000] [SwingWorker-pool-2-thread-9] [INFO] [google.usersyncapp.Report]
+
+[2021-04-01 13:19:01,531+0000] [SwingWorker-pool-2-thread-9] [INFO] [sync.agent.FullSyncAgent] Successfully retrieved information from all sources.
+[2021-04-01 13:19:01,547+0000] [SwingWorker-pool-2-thread-9] [INFO] [sync.agent.FullSyncAgent] Retrieved 0 users from remote sources, and 15 users from local sources.
+[2021-04-01 13:19:01,547+0000] [SwingWorker-pool-2-thread-9] [INFO] [sync.agent.FullSyncAgent] Retrieved 0 groups from remote sources, and 3 groups from local sources.
+[2021-04-01 13:19:01,547+0000] [SwingWorker-pool-2-thread-9] [INFO] [sync.agent.FullSyncAgent] Analyzing differences and computing changes.
+[2021-04-01 13:19:01,578+0000] [SwingWorker-pool-2-thread-9] [INFO] [diff.engine.CompleteDiffEngine] Group manager configuration policy set to: Keep (managers won't be deleted but will be updated if they appear in the LDAP).
+[2021-04-01 13:19:01,578+0000] [SwingWorker-pool-2-thread-9] [INFO] [sync.agent.FullSyncAgent] In simulation mode, not applying computed changes.
+[2021-04-01 13:19:01,593+0000] [SwingWorker-pool-2-thread-9] [INFO] [google.usersyncapp.Report]
+Proposed Change Report, Generated 1:19:01 PM Apr 1, 2021
+
+Analyzed users:
+	15 local
+	0 remote
+
+Proposed changes:
+	Delete: 0
+	Modify: 0
+	Create: 15
+
+Create - 15 total
+New user 1: "boyle@ldap.forumsys.com"
+	Non-address primary key "NmYzYTViZWEtNmI0OC0xMDM0LThhZDYtOGZiNzgzMzBkODBh"
+	SHA1 password
+	0 aliases
+
+New user 2: "curie@ldap.forumsys.com"
+	Non-address primary key "MjkwNDQxOWEtNmI0OC0xMDM0LThhZDQtOGZiNzgzMzBkODBh"
+	SHA1 password
+	0 aliases
+
+New user 3: "einstein@ldap.forumsys.com"
+	Non-address primary key "MjlmNmRjMjgtMmY2NC0xMDMzLTg5OGItYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 4: "euclid@ldap.forumsys.com"
+	Non-address primary key "YWM1ZGM2OTItMmY2Ny0xMDMzLTg5OWEtYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 5: "euler@ldap.forumsys.com"
+	Non-address primary key "MmJkMzE5NWEtMmY2Ny0xMDMzLTg5OTQtYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 6: "galieleo@ldap.forumsys.com"
+	Non-address primary key "YjljNTNjYjQtMmY2NC0xMDMzLTg5OGYtYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 7: "gauss@ldap.forumsys.com"
+	Non-address primary key "NjI5YWI3MTgtMmY2Ny0xMDMzLTg5OTYtYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 8: "jmacy-training@forumsys.com"
+	Non-address primary key "ZTU5MjYwY2MtMDVhZi0xMDM3LTgxNjItMTc2YTdjNmQyYjVk"
+	SHA1 password
+	0 aliases
+
+New user 9: "newton@ldap.forumsys.com"
+	Non-address primary key "MDUwY2U0ZGUtMmY2NC0xMDMzLTg5ODktYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 10: "nobel@ldap.forumsys.com"
+	Non-address primary key "NGYzNTE5NDgtNmI0OC0xMDM0LThhZDUtOGZiNzgzMzBkODBh"
+	SHA1 password
+	0 aliases
+
+New user 11: "nogroup@ldap.forumsys.com"
+	Non-address primary key "MjUyMjk5NjgtNmI0OS0xMDM0LThhZDgtOGZiNzgzMzBkODBh"
+	SHA1 password
+	0 aliases
+
+New user 12: "pasteur@ldap.forumsys.com"
+	Non-address primary key "YTBhYTllZDgtNmI0OC0xMDM0LThhZDctOGZiNzgzMzBkODBh"
+	SHA1 password
+	0 aliases
+
+New user 13: "riemann@ldap.forumsys.com"
+	Non-address primary key "OGJkNDcyZWEtMmY2Ny0xMDMzLTg5OTgtYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 14: "tesla@ldap.forumsys.com"
+	Non-address primary key "NzUxYjBhNzYtMmY2NC0xMDMzLTg5OGQtYTUzZWIxNDlhOTQ0"
+	SHA1 password
+	0 aliases
+
+New user 15: "training@forumsys.com"
+	Non-address primary key "MzJhMzI0YmMtOTNlMy0xMDM2LTgwZTYtMTc2YTdjNmQyYjVk"
+	SHA1 password
+	0 aliases
+
+
+
+Analyzed groups:
+	3 local
+	0 remote
+
+Proposed changes:
+	Delete: 0
+	Modify: 0
+	Create: 3
+
+Create Group(s) - 3 total
+	"chemists@imok2.page"
+	"mathematicians@imok2.page"
+	"scientists@imok2.page"
+
+
+[2021-04-01 13:19:01,812+0000] [AWT-EventQueue-0] [INFO] [general.syncdialog.SyncDialog$SimulateSyncWorker] Simulation completed successfully
+[2021-04-01 13:19:07,484+0000] [AWT-EventQueue-0] [INFO] [ui.util.OpenUrl] Opening URL :file:/C:/Users/terraform/gcds_sync.20210401-131858.log

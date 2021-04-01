@@ -1,0 +1,1079 @@
+
+2021-04-01 20:40:54 CST    clear up environment
+
+2021-04-01 20:40:54 CST    authenticate as service project service account
+Activated service account credentials for: [terraform@gke-eu-1.iam.gserviceaccount.com]
+
+2021-04-01 20:41:05 CST    authenticate as share project service account
+Activated service account credentials for: [terraform@vpchost-eu-dev.iam.gserviceaccount.com]
+Listed 0 items.
+
+2021-04-01 20:41:09 CST    download terraform binary
+
+2021-04-01 20:41:09 CST    downloading https://releases.hashicorp.com/terraform/0.12.13/terraform_0.12.13_darwin_amd64.zip
+
+2021-04-01 20:41:32 CST    downloading https://releases.hashicorp.com/terraform-provider-google/2.17.0/terraform-provider-google_2.17.0_darwin_amd64.zip
+
+2021-04-01 20:41:40 CST    downloading https://releases.hashicorp.com/terraform-provider-google-beta/3.49.0/terraform-provider-google-beta_3.49.0_darwin_amd64.zip
+
+2021-04-01 20:41:48 CST    authenticate as service project service account
+Activated service account credentials for: [terraform@gke-eu-1.iam.gserviceaccount.com]
+
+2021-04-01 20:41:50 CST    prepare custom_groups.auto.tfvars.json to create user-defined google groups
+{
+  "custom_groups": {
+    "image": {
+      "display_name": "gcp.custom-group.image",
+      "group_key_id": "gcp.custom-group.image@imok2.page"
+    },
+    "vpc1": {
+      "display_name": "gcp.custom-group.vpc1",
+      "group_key_id": "gcp.custom-group.vpc1@imok2.page"
+    },
+    "vpc2": {
+      "display_name": "gcp.custom-group.vpc2",
+      "group_key_id": "gcp.custom-group.vpc2@imok2.page"
+    }
+  }
+}
+
+2021-04-01 20:41:50 CST    terraform init ./terraform_deployment_custom_group
+
+Initializing the backend...
+
+Successfully configured the backend "local"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.google-beta: version = "~> 3.49"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+2021-04-01 20:41:52 CST    terraform apply ./terraform_deployment_custom_group to create user-defined google groups
+google_cloud_identity_group.custom_group["vpc1"]: Creating...
+google_cloud_identity_group.custom_group["image"]: Creating...
+google_cloud_identity_group.custom_group["vpc2"]: Creating...
+google_cloud_identity_group.custom_group["vpc1"]: Creation complete after 8s [id=groups/048pi1tg4afd1ml]
+google_cloud_identity_group.custom_group["vpc2"]: Creation complete after 8s [id=groups/01yyy98l3l09o42]
+google_cloud_identity_group.custom_group["image"]: Creation complete after 9s [id=groups/0279ka653q8et2x]
+
+Apply complete! Resources: 3 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: ./terraform_deployment_custom_group/terraform_state
+
+Outputs:
+
+custom_groups = {
+  "gcp.custom-group.image" = {
+    "create_time" = "2021-04-01T12:41:57.392088Z"
+    "description" = ""
+    "display_name" = "gcp.custom-group.image"
+    "id" = "groups/0279ka653q8et2x"
+    "name" = "groups/0279ka653q8et2x"
+    "update_time" = "2021-04-01T12:41:57.392088Z"
+  }
+  "gcp.custom-group.vpc1" = {
+    "create_time" = "2021-04-01T12:41:57.414918Z"
+    "description" = ""
+    "display_name" = "gcp.custom-group.vpc1"
+    "id" = "groups/048pi1tg4afd1ml"
+    "name" = "groups/048pi1tg4afd1ml"
+    "update_time" = "2021-04-01T12:41:57.414918Z"
+  }
+  "gcp.custom-group.vpc2" = {
+    "create_time" = "2021-04-01T12:41:57.410145Z"
+    "description" = ""
+    "display_name" = "gcp.custom-group.vpc2"
+    "id" = "groups/01yyy98l3l09o42"
+    "name" = "groups/01yyy98l3l09o42"
+    "update_time" = "2021-04-01T12:41:57.410145Z"
+  }
+}
+
+2021-04-01 20:42:03 CST    create service project service accounts
+
+2021-04-01 20:42:17 CST    prepare custom_groups_memberships.auto.tfvars.json to add user-defined GCP service accounts to groups
+{
+  "custom_groups_memberships": {
+    "gcp.custom-group.image@imok2.page": [
+        "image-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+    ],
+    "gcp.custom-group.vpc1@imok2.page": [
+        "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+    ],
+    "gcp.custom-group.vpc2@imok2.page": [
+        "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+    ]
+  }
+}
+
+2021-04-01 20:42:17 CST    terraform init ./terraform_deployment_custom_group_membership
+
+Initializing the backend...
+
+Successfully configured the backend "local"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.google-beta: version = "~> 3.49"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+2021-04-01 20:42:17 CST    terraform apply ./terraform_deployment_custom_group_membership to add user-defined GCP service accounts to groups
+data.google_cloud_identity_groups.all_groups: Refreshing state...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa1@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa2@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 9s [id=groups/048pi1tg4afd1ml/memberships/107344258729263616087]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 9s [id=groups/01yyy98l3l09o42/memberships/106275465048575207271]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 9s [id=groups/048pi1tg4afd1ml/memberships/104886793018090426026]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 9s [id=groups/01yyy98l3l09o42/memberships/100186988695330680477]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa2@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 9s [id=groups/0279ka653q8et2x/memberships/114950691220326030185]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa1@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 9s [id=groups/0279ka653q8et2x/memberships/104051654724174914167]
+
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: ./terraform_deployment_custom_group_membership/terraform_state
+
+Outputs:
+
+custom_groups_memberships = {
+  "gcp.custom-group.image@imok2.page_image-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.576471Z"
+    "group" = "groups/0279ka653q8et2x"
+    "id" = "groups/0279ka653q8et2x/memberships/104051654724174914167"
+    "member_key" = [
+      {
+        "id" = "image-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/0279ka653q8et2x/memberships/104051654724174914167"
+    "preferred_member_key" = [
+      {
+        "id" = "image-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.576471Z"
+  }
+  "gcp.custom-group.image@imok2.page_image-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.512263Z"
+    "group" = "groups/0279ka653q8et2x"
+    "id" = "groups/0279ka653q8et2x/memberships/114950691220326030185"
+    "member_key" = [
+      {
+        "id" = "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/0279ka653q8et2x/memberships/114950691220326030185"
+    "preferred_member_key" = [
+      {
+        "id" = "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.512263Z"
+  }
+  "gcp.custom-group.vpc1@imok2.page_vpc1-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.492441Z"
+    "group" = "groups/048pi1tg4afd1ml"
+    "id" = "groups/048pi1tg4afd1ml/memberships/104886793018090426026"
+    "member_key" = [
+      {
+        "id" = "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/048pi1tg4afd1ml/memberships/104886793018090426026"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.492441Z"
+  }
+  "gcp.custom-group.vpc1@imok2.page_vpc1-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.464729Z"
+    "group" = "groups/048pi1tg4afd1ml"
+    "id" = "groups/048pi1tg4afd1ml/memberships/107344258729263616087"
+    "member_key" = [
+      {
+        "id" = "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/048pi1tg4afd1ml/memberships/107344258729263616087"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.464729Z"
+  }
+  "gcp.custom-group.vpc2@imok2.page_vpc2-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.502912Z"
+    "group" = "groups/01yyy98l3l09o42"
+    "id" = "groups/01yyy98l3l09o42/memberships/106275465048575207271"
+    "member_key" = [
+      {
+        "id" = "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/01yyy98l3l09o42/memberships/106275465048575207271"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.502912Z"
+  }
+  "gcp.custom-group.vpc2@imok2.page_vpc2-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.366812Z"
+    "group" = "groups/01yyy98l3l09o42"
+    "id" = "groups/01yyy98l3l09o42/memberships/100186988695330680477"
+    "member_key" = [
+      {
+        "id" = "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/01yyy98l3l09o42/memberships/100186988695330680477"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.366812Z"
+  }
+}
+
+2021-04-01 20:42:38 CST    authenticate as share project service account
+Activated service account credentials for: [terraform@vpchost-eu-dev.iam.gserviceaccount.com]
+
+2021-04-01 20:42:40 CST    create a custom compute image in share project
+Created [https://www.googleapis.com/compute/v1/projects/vpchost-eu-dev/global/images/custom-image].
+NAME          PROJECT         FAMILY        DEPRECATED  STATUS
+custom-image  vpchost-eu-dev  custom-image              READY
+
+2021-04-01 20:43:32 CST    authenticate as service project service account
+Activated service account credentials for: [terraform@gke-eu-1.iam.gserviceaccount.com]
+
+2021-04-01 20:43:35 CST    allow service project packer@gke-eu-1.iam.gserviceaccount.com to create VM
+Updated IAM policy for project [gke-eu-1].
+bindings:
+- members:
+  - serviceAccount:image-sa1@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:packer@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/compute.instanceAdmin.v1
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/compute.networkAdmin
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/compute.securityAdmin
+- members:
+  - serviceAccount:service-119099403502@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-119099403502@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-119099403502@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:service-119099403502@gcp-sa-datafusion.iam.gserviceaccount.com
+  role: roles/datafusion.serviceAgent
+- members:
+  - serviceAccount:service-119099403502@dataproc-accounts.iam.gserviceaccount.com
+  role: roles/dataproc.serviceAgent
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/dns.admin
+- members:
+  - deleted:group:test11@imok2.page?uid=501737406207527869773
+  - serviceAccount:119099403502-compute@developer.gserviceaccount.com
+  - serviceAccount:119099403502@cloudservices.gserviceaccount.com
+  - serviceAccount:service-119099403502@containerregistry.iam.gserviceaccount.com
+  - user:wilsonfv78@gmail.com
+  role: roles/editor
+- members:
+  - serviceAccount:filestore@gke-eu-1.iam.gserviceaccount.com
+  role: roles/file.editor
+- members:
+  - serviceAccount:service-119099403502@cloud-filer.iam.gserviceaccount.com
+  role: roles/file.serviceAgent
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  - user:wilsonfv78@gmail.com
+  role: roles/iam.securityAdmin
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.securityReviewer
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountAdmin
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountTokenCreator
+- members:
+  - serviceAccount:image-sa1@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:packer@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageAdmin
+etag: BwW-6JSfmM0=
+version: 1
+Updated IAM policy for project [gke-eu-1].
+bindings:
+- members:
+  - serviceAccount:image-sa1@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:packer@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/compute.instanceAdmin.v1
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/compute.networkAdmin
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/compute.securityAdmin
+- members:
+  - serviceAccount:service-119099403502@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-119099403502@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:service-119099403502@containerregistry.iam.gserviceaccount.com
+  role: roles/containerregistry.ServiceAgent
+- members:
+  - serviceAccount:service-119099403502@gcp-sa-datafusion.iam.gserviceaccount.com
+  role: roles/datafusion.serviceAgent
+- members:
+  - serviceAccount:service-119099403502@dataproc-accounts.iam.gserviceaccount.com
+  role: roles/dataproc.serviceAgent
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/dns.admin
+- members:
+  - deleted:group:test11@imok2.page?uid=501737406207527869773
+  - serviceAccount:119099403502-compute@developer.gserviceaccount.com
+  - serviceAccount:119099403502@cloudservices.gserviceaccount.com
+  - serviceAccount:service-119099403502@containerregistry.iam.gserviceaccount.com
+  - user:wilsonfv78@gmail.com
+  role: roles/editor
+- members:
+  - serviceAccount:filestore@gke-eu-1.iam.gserviceaccount.com
+  role: roles/file.editor
+- members:
+  - serviceAccount:service-119099403502@cloud-filer.iam.gserviceaccount.com
+  role: roles/file.serviceAgent
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  - user:wilsonfv78@gmail.com
+  role: roles/iam.securityAdmin
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.securityReviewer
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountAdmin
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountTokenCreator
+- members:
+  - serviceAccount:image-sa1@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:packer@gke-eu-1.iam.gserviceaccount.com
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/iam.serviceAccountUser
+- members:
+  - serviceAccount:terraform@gke-eu-1.iam.gserviceaccount.com
+  role: roles/serviceusage.serviceUsageAdmin
+etag: BwW-6JTPFvU=
+version: 1
+
+2021-04-01 20:43:41 CST    using impersonate service account to run as packer@gke-eu-1.iam.gserviceaccount.com, create a VM in service project using custom image from share project
+
+2021-04-01 20:43:41 CST    we will expect to see permission denied Required 'compute.images.useReadOnly' error
+WARNING: This command is using service account impersonation. All API calls will be executed as [packer@gke-eu-1.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [packer@gke-eu-1.iam.gserviceaccount.com].
+ERROR: (gcloud.compute.instances.create) Could not fetch resource:
+ - Required 'compute.images.useReadOnly' permission for 'projects/vpchost-eu-dev/global/images/custom-image'
+
+
+2021-04-01 20:44:11 CST    add packer@gke-eu-1.iam.gserviceaccount.com to custom groups image and vpc1
+
+2021-04-01 20:44:11 CST    prepare custom_groups_memberships.auto.tfvars.json to add packer@gke-eu-1.iam.gserviceaccount.com to custom groups image and vpc1
+{
+  "custom_groups_memberships": {
+    "gcp.custom-group.image@imok2.page": [
+        "image-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "image-sa2@gke-eu-1.iam.gserviceaccount.com",
+        "packer@gke-eu-1.iam.gserviceaccount.com"
+    ],
+    "gcp.custom-group.vpc1@imok2.page": [
+        "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com",
+        "packer@gke-eu-1.iam.gserviceaccount.com"
+    ],
+    "gcp.custom-group.vpc2@imok2.page": [
+        "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+    ]
+  }
+}
+
+2021-04-01 20:44:11 CST    terraform init ./terraform_deployment_custom_group_membership
+
+Initializing the backend...
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.google-beta: version = "~> 3.49"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+2021-04-01 20:44:12 CST    terraform apply ./terraform_deployment_custom_group_membership to add packer@gke-eu-1.iam.gserviceaccount.com to custom groups image and vpc1
+data.google_cloud_identity_groups.all_groups: Refreshing state...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/01yyy98l3l09o42/memberships/100186988695330680477]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/01yyy98l3l09o42/memberships/106275465048575207271]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa1@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/0279ka653q8et2x/memberships/104051654724174914167]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa2@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/0279ka653q8et2x/memberships/114950691220326030185]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/048pi1tg4afd1ml/memberships/107344258729263616087]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/048pi1tg4afd1ml/memberships/104886793018090426026]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Creating...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 7s [id=groups/0279ka653q8et2x/memberships/107779781112863132850]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Creation complete after 9s [id=groups/048pi1tg4afd1ml/memberships/107779781112863132850]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+The state of your infrastructure has been saved to the path
+below. This state is required to modify and destroy your
+infrastructure, so keep it safe. To inspect the complete state
+use the `terraform show` command.
+
+State path: ./terraform_deployment_custom_group_membership/terraform_state
+
+Outputs:
+
+custom_groups_memberships = {
+  "gcp.custom-group.image@imok2.page_image-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.576471Z"
+    "group" = "groups/0279ka653q8et2x"
+    "id" = "groups/0279ka653q8et2x/memberships/104051654724174914167"
+    "member_key" = [
+      {
+        "id" = "image-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/0279ka653q8et2x/memberships/104051654724174914167"
+    "preferred_member_key" = [
+      {
+        "id" = "image-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.576471Z"
+  }
+  "gcp.custom-group.image@imok2.page_image-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.512263Z"
+    "group" = "groups/0279ka653q8et2x"
+    "id" = "groups/0279ka653q8et2x/memberships/114950691220326030185"
+    "member_key" = [
+      {
+        "id" = "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/0279ka653q8et2x/memberships/114950691220326030185"
+    "preferred_member_key" = [
+      {
+        "id" = "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.512263Z"
+  }
+  "gcp.custom-group.image@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:44:23.974776Z"
+    "group" = "groups/0279ka653q8et2x"
+    "id" = "groups/0279ka653q8et2x/memberships/107779781112863132850"
+    "member_key" = [
+      {
+        "id" = "packer@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/0279ka653q8et2x/memberships/107779781112863132850"
+    "preferred_member_key" = [
+      {
+        "id" = "packer@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:44:23.974776Z"
+  }
+  "gcp.custom-group.vpc1@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:44:25.485328Z"
+    "group" = "groups/048pi1tg4afd1ml"
+    "id" = "groups/048pi1tg4afd1ml/memberships/107779781112863132850"
+    "member_key" = [
+      {
+        "id" = "packer@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/048pi1tg4afd1ml/memberships/107779781112863132850"
+    "preferred_member_key" = [
+      {
+        "id" = "packer@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:44:25.485328Z"
+  }
+  "gcp.custom-group.vpc1@imok2.page_vpc1-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.492441Z"
+    "group" = "groups/048pi1tg4afd1ml"
+    "id" = "groups/048pi1tg4afd1ml/memberships/104886793018090426026"
+    "member_key" = [
+      {
+        "id" = "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/048pi1tg4afd1ml/memberships/104886793018090426026"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.492441Z"
+  }
+  "gcp.custom-group.vpc1@imok2.page_vpc1-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.464729Z"
+    "group" = "groups/048pi1tg4afd1ml"
+    "id" = "groups/048pi1tg4afd1ml/memberships/107344258729263616087"
+    "member_key" = [
+      {
+        "id" = "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/048pi1tg4afd1ml/memberships/107344258729263616087"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.464729Z"
+  }
+  "gcp.custom-group.vpc2@imok2.page_vpc2-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.502912Z"
+    "group" = "groups/01yyy98l3l09o42"
+    "id" = "groups/01yyy98l3l09o42/memberships/106275465048575207271"
+    "member_key" = [
+      {
+        "id" = "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/01yyy98l3l09o42/memberships/106275465048575207271"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.502912Z"
+  }
+  "gcp.custom-group.vpc2@imok2.page_vpc2-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.366812Z"
+    "group" = "groups/01yyy98l3l09o42"
+    "id" = "groups/01yyy98l3l09o42/memberships/100186988695330680477"
+    "member_key" = [
+      {
+        "id" = "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/01yyy98l3l09o42/memberships/100186988695330680477"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.366812Z"
+  }
+}
+
+2021-04-01 20:44:28 CST    authenticate as share project service account
+Activated service account credentials for: [terraform@vpchost-eu-dev.iam.gserviceaccount.com]
+
+2021-04-01 20:44:31 CST    grant roles/compute.imageUser to the custom group
+Updated IAM policy for project [vpchost-eu-dev].
+bindings:
+- members:
+  - user:wilson.j.x.mo@maplequad.com
+  role: organizations/387121157408/roles/CustomComputeLoadBalancerAdmin
+- members:
+  - deleted:group:gcp.custom-group.image@imok2.page?uid=500634524292715799788
+  - deleted:group:gcp.custom-group.image@imok2.page?uid=502866578672866293050
+  - deleted:group:gcp.custom-group.image@imok2.page?uid=511888134469461483951
+  - deleted:group:gcp.custom-group.image@imok2.page?uid=516671428587319239171
+  - group:gcp.custom-group.image@imok2.page
+  role: roles/compute.imageUser
+- members:
+  - serviceAccount:terraform@vpchost-eu-dev.iam.gserviceaccount.com
+  role: roles/compute.instanceAdmin.v1
+- members:
+  - serviceAccount:service-331750986299@compute-system.iam.gserviceaccount.com
+  role: roles/compute.serviceAgent
+- members:
+  - serviceAccount:service-463030754218@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.hostServiceAgentUser
+- members:
+  - serviceAccount:service-331750986299@container-engine-robot.iam.gserviceaccount.com
+  role: roles/container.serviceAgent
+- members:
+  - serviceAccount:331750986299-compute@developer.gserviceaccount.com
+  - serviceAccount:331750986299@cloudservices.gserviceaccount.com
+  - serviceAccount:service-331750986299@containerregistry.iam.gserviceaccount.com
+  role: roles/editor
+- members:
+  - serviceAccount:terraform@vpchost-eu-dev.iam.gserviceaccount.com
+  role: roles/iam.securityAdmin
+- members:
+  - user:wilsonfv78@gmail.com
+  role: roles/owner
+- members:
+  - serviceAccount:terraform@vpchost-eu-dev.iam.gserviceaccount.com
+  role: roles/storage.admin
+- members:
+  - user:wilson.j.x.mo@maplequad.com
+  role: roles/viewer
+etag: BwW-6JgCWmE=
+version: 1
+
+2021-04-01 20:44:35 CST    authenticate as service project service account
+Activated service account credentials for: [terraform@gke-eu-1.iam.gserviceaccount.com]
+
+2021-04-01 20:44:37 CST    using impersonate service account to run as packer@gke-eu-1.iam.gserviceaccount.com, create a VM in service project using custom image from share project
+
+2021-04-01 20:44:37 CST    after roles/compute.imageUser granted to the custom group, service project SA is now able to use custom image to create VM
+WARNING: This command is using service account impersonation. All API calls will be executed as [packer@gke-eu-1.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [packer@gke-eu-1.iam.gserviceaccount.com].
+Created [https://www.googleapis.com/compute/v1/projects/gke-eu-1/zones/europe-west1-b/instances/temp-vm].
+WARNING: Some requests generated warnings:
+ - Disk size: '200 GB' is larger than image size: '10 GB'. You might need to resize the root repartition manually if the operating system does not support automatic resizing. See https://cloud.google.com/compute/docs/disks/add-persistent-disk#resize_pd for details.
+
+NAME     ZONE            MACHINE_TYPE  PREEMPTIBLE  INTERNAL_IP  EXTERNAL_IP     STATUS
+temp-vm  europe-west1-b  f1-micro      true         10.132.0.11  104.155.91.139  RUNNING
+
+2021-04-01 20:45:15 CST    since packer@gke-eu-1.iam.gserviceaccount.com is able to access the custom image from share project, we will delete the VM
+Deleted [https://www.googleapis.com/compute/v1/projects/gke-eu-1/zones/europe-west1-b/instances/temp-vm].
+
+2021-04-01 20:46:14 CST    remove packer@gke-eu-1.iam.gserviceaccount.com from custom groups so that it will lose permission access to the share image
+
+2021-04-01 20:46:14 CST    prepare custom_groups_memberships.auto.tfvars.json to remove packer@gke-eu-1.iam.gserviceaccount.com from custom groups
+{
+  "custom_groups_memberships": {
+    "gcp.custom-group.image@imok2.page": [
+        "image-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+    ],
+    "gcp.custom-group.vpc1@imok2.page": [
+        "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+    ],
+    "gcp.custom-group.vpc2@imok2.page": [
+        "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com",
+        "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+    ]
+  }
+}
+
+2021-04-01 20:46:14 CST    terraform init ./terraform_deployment_custom_group_membership
+
+Initializing the backend...
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.google-beta: version = "~> 3.49"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+2021-04-01 20:46:14 CST    terraform apply ./terraform_deployment_custom_group_membership to remove packer@gke-eu-1.iam.gserviceaccount.com from custom groups
+data.google_cloud_identity_groups.all_groups: Refreshing state...
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/01yyy98l3l09o42/memberships/106275465048575207271]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/048pi1tg4afd1ml/memberships/104886793018090426026]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc2@imok2.page_vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/01yyy98l3l09o42/memberships/100186988695330680477]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/0279ka653q8et2x/memberships/107779781112863132850]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa2@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/0279ka653q8et2x/memberships/114950691220326030185]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/048pi1tg4afd1ml/memberships/107779781112863132850]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_image-sa1@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/0279ka653q8et2x/memberships/104051654724174914167]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"]: Refreshing state... [id=groups/048pi1tg4afd1ml/memberships/107344258729263616087]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Destroying... [id=groups/048pi1tg4afd1ml/memberships/107779781112863132850]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Destroying... [id=groups/0279ka653q8et2x/memberships/107779781112863132850]
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.vpc1@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Destruction complete after 2s
+google_cloud_identity_group_membership.custom_group_membership["gcp.custom-group.image@imok2.page_packer@gke-eu-1.iam.gserviceaccount.com"]: Destruction complete after 2s
+
+Apply complete! Resources: 0 added, 0 changed, 2 destroyed.
+
+Outputs:
+
+custom_groups_memberships = {
+  "gcp.custom-group.image@imok2.page_image-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.576471Z"
+    "group" = "groups/0279ka653q8et2x"
+    "id" = "groups/0279ka653q8et2x/memberships/104051654724174914167"
+    "member_key" = [
+      {
+        "id" = "image-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/0279ka653q8et2x/memberships/104051654724174914167"
+    "preferred_member_key" = [
+      {
+        "id" = "image-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.576471Z"
+  }
+  "gcp.custom-group.image@imok2.page_image-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.512263Z"
+    "group" = "groups/0279ka653q8et2x"
+    "id" = "groups/0279ka653q8et2x/memberships/114950691220326030185"
+    "member_key" = [
+      {
+        "id" = "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/0279ka653q8et2x/memberships/114950691220326030185"
+    "preferred_member_key" = [
+      {
+        "id" = "image-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.512263Z"
+  }
+  "gcp.custom-group.vpc1@imok2.page_vpc1-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.492441Z"
+    "group" = "groups/048pi1tg4afd1ml"
+    "id" = "groups/048pi1tg4afd1ml/memberships/104886793018090426026"
+    "member_key" = [
+      {
+        "id" = "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/048pi1tg4afd1ml/memberships/104886793018090426026"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc1-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.492441Z"
+  }
+  "gcp.custom-group.vpc1@imok2.page_vpc1-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.464729Z"
+    "group" = "groups/048pi1tg4afd1ml"
+    "id" = "groups/048pi1tg4afd1ml/memberships/107344258729263616087"
+    "member_key" = [
+      {
+        "id" = "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/048pi1tg4afd1ml/memberships/107344258729263616087"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc1-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.464729Z"
+  }
+  "gcp.custom-group.vpc2@imok2.page_vpc2-sa1@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.502912Z"
+    "group" = "groups/01yyy98l3l09o42"
+    "id" = "groups/01yyy98l3l09o42/memberships/106275465048575207271"
+    "member_key" = [
+      {
+        "id" = "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/01yyy98l3l09o42/memberships/106275465048575207271"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc2-sa1@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.502912Z"
+  }
+  "gcp.custom-group.vpc2@imok2.page_vpc2-sa2@gke-eu-1.iam.gserviceaccount.com" = {
+    "create_time" = "2021-04-01T12:42:37.366812Z"
+    "group" = "groups/01yyy98l3l09o42"
+    "id" = "groups/01yyy98l3l09o42/memberships/100186988695330680477"
+    "member_key" = [
+      {
+        "id" = "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "name" = "groups/01yyy98l3l09o42/memberships/100186988695330680477"
+    "preferred_member_key" = [
+      {
+        "id" = "vpc2-sa2@gke-eu-1.iam.gserviceaccount.com"
+        "namespace" = ""
+      },
+    ]
+    "roles" = [
+      {
+        "name" = "MEMBER"
+      },
+    ]
+    "type" = "SERVICE_ACCOUNT"
+    "update_time" = "2021-04-01T12:42:37.366812Z"
+  }
+}
+
+2021-04-01 20:46:29 CST    wait 120 seconds for gcp to propagate the state that packer@gke-eu-1.iam.gserviceaccount.com has removed from the custom group and lost permission to the share image
+
+2021-04-01 20:48:29 CST    authenticate as service project service account
+Activated service account credentials for: [terraform@gke-eu-1.iam.gserviceaccount.com]
+
+2021-04-01 20:48:31 CST    using impersonate service account to run as packer@gke-eu-1.iam.gserviceaccount.com, create a VM in service project using custom image from share project
+
+2021-04-01 20:48:31 CST    since packer@gke-eu-1.iam.gserviceaccount.com has been removed from custom groups, we will expect to see permission denied Required 'compute.images.useReadOnly' error
+WARNING: This command is using service account impersonation. All API calls will be executed as [packer@gke-eu-1.iam.gserviceaccount.com].
+WARNING: This command is using service account impersonation. All API calls will be executed as [packer@gke-eu-1.iam.gserviceaccount.com].
+ERROR: (gcloud.compute.instances.create) Could not fetch resource:
+ - Required 'compute.images.useReadOnly' permission for 'projects/vpchost-eu-dev/global/images/custom-image'
+
+
+2021-04-01 20:49:02 CST    clear up environment
+
+2021-04-01 20:49:02 CST    authenticate as service project service account
+Activated service account credentials for: [terraform@gke-eu-1.iam.gserviceaccount.com]
+
+2021-04-01 20:49:12 CST    authenticate as share project service account
+Activated service account credentials for: [terraform@vpchost-eu-dev.iam.gserviceaccount.com]
+Deleted [https://www.googleapis.com/compute/v1/projects/vpchost-eu-dev/global/images/custom-image].
